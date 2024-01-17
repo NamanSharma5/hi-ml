@@ -168,3 +168,5 @@ test_outputs/
 lightning_logs/
 # Downloaded datasets
 TCGA-Crck/
+SECURITY.md
+CODE_OF_CONDUCT.md
