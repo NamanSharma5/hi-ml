@@ -7,7 +7,7 @@ from typing import Any, List, Tuple, Type, Union
 
 import torch
 from torch.hub import load_state_dict_from_url
-from torchvision.models.resnet import model_urls, ResNet, BasicBlock, Bottleneck
+from torchvision.models.resnet import BasicBlock, Bottleneck, ResNet
 
 TypeSkipConnections = Tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]
 
@@ -62,7 +62,7 @@ def _resnet(
     """
     model = ResNetHIML(block=block, layers=layers, **kwargs)
     if pretrained:
-        state_dict = load_state_dict_from_url(model_urls[arch], progress=progress)
+        state_dict = load_state_dict_from_url("https://download.pytorch.org/models/resnet50-0676ba61.pth", progress=progress)
         model.load_state_dict(state_dict)
     return model
 
