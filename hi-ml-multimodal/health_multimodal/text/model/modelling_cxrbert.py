@@ -3,6 +3,7 @@
 #  Licensed under the MIT License (MIT). See LICENSE in the repo root for license information.
 #  ------------------------------------------------------------------------------------------
 
+from dataclasses import dataclass
 from typing import Any, Optional, Tuple, Union
 
 import torch
@@ -16,10 +17,10 @@ from health_multimodal.text.model.configuration_cxrbert import CXRBertConfig
 
 BERTTupleOutput = Tuple[T, T, T, T, T]
 
-
+@dataclass
 class CXRBertOutput(ModelOutput):
-    last_hidden_state: torch.FloatTensor
-    logits: torch.FloatTensor
+    last_hidden_state: torch.FloatTensor = None
+    logits: torch.FloatTensor = None
     cls_projected_embedding: Optional[torch.FloatTensor] = None
     hidden_states: Optional[Tuple[torch.FloatTensor]] = None
     attentions: Optional[Tuple[torch.FloatTensor]] = None

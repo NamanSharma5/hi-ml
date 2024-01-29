@@ -170,3 +170,8 @@ lightning_logs/
 TCGA-Crck/
 SECURITY.md
 CODE_OF_CONDUCT.md
+
+
+
+#images for inference
+hi-ml-multimodal/.img
