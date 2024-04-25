@@ -68,6 +68,12 @@ class ImageInferenceEngine:
         assert projected_img_emb.shape[0] == 1
 
         return projected_img_emb[0], img_shape
+    
+    @torch.no_grad()
+    def get_projected_patch_embeddings_multi_image(self,prev_image_path:Path, image_path: Path) -> Tuple[torch.Tensor, TypeShape2D]:
+        #TODO
+        pass
+
 
     @torch.no_grad()
     def get_projected_global_embedding(self, image_path: Path) -> torch.Tensor:
@@ -85,3 +91,24 @@ class ImageInferenceEngine:
         assert projected_img_emb.ndim == 2
 
         return projected_img_emb[0]
+
+    @torch.no_grad()
+    def get_projected_global_embedding_multi_image(self,prev_image_path:Path, image_path: Path) -> torch.Tensor:
+        """Compute global image embedding in the joint latent space given a previous image.
+
+        :param prev_image_path: Path to the previous image used for progression modelling
+        :param image_path: Path to the image to compute embeddings for.
+        :return: Torch tensor containing l2-normalised global image embedding [joint_feature_dim,]
+                 where joint_feature_dim is the dimensionality of the joint latent space.
+        """
+
+        input_image, _ = self.load_and_transform_input_image(image_path, self.transform)
+        prev_input_image, _ = self.load_and_transform_input_image(prev_image_path, self.transform)
+        projected_img_emb = self.model.forward(input_image,prev_input_image).projected_global_embedding
+        projected_img_emb = F.normalize(projected_img_emb, dim=-1)
+
+        assert projected_img_emb.shape[0] == 1
+        assert projected_img_emb.ndim == 2
+
+        return projected_img_emb[0]
+  

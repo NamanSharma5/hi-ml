@@ -1,5 +1,5 @@
 
-from transformers import BertLMHeadModel, BertConfig
+from transformers import BertLMHeadModel, AutoModelForCausalLM
 
 import os
 cache_dir = "/vol/biomedic3/bglocker/ugproj2324/nns20/hi-ml/.cache"
@@ -19,7 +19,8 @@ model_identifier = BIOMED_VLP_BIOVIL_T
 # model_identifier = BIOMED_VLP_CXR_BERT_SPECIALIZED
 
 tokenizer = CXRBertTokenizer.from_pretrained(model_identifier, revision=BIOVIL_T_COMMIT_TAG)  
-model = BertLMHeadModel.from_pretrained(model_identifier, is_decoder=True)
+# model = BertLMHeadModel.from_pretrained(model_identifier, is_decoder=True)
+model = AutoModelForCausalLM.from_pretrained(model_identifier, is_decoder=True)
 
 # Function to encode input text and decode output text
 def generate_text(input_prompt, model, tokenizer, max_length=50):
@@ -43,11 +44,9 @@ def generate_text(input_prompt, model, tokenizer, max_length=50):
     # Decode to text
     return tokenizer.decode(output_sequences[0], skip_special_tokens=True)
 
-# Example prompt
 input_prompt = "The finding suggests"
 # input_prompt = "What does it mean when doctors say there is a consolidation in a chest x-ray?"
 
-# Generate text
 output_text = generate_text(input_prompt, model, tokenizer)
 print(output_text)
 

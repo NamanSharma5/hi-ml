@@ -1,4 +1,4 @@
-## FIRST ACTIVATE THIS VENV: source ~/../../vol/bitbucket/nns20/hi-ml-mulitmodal-venv/bin/activate
+## FIRST ACTIVATE THIS VENV: source ~/../../vol/bitbucket/nns20/hi-ml-up-to-date-venv/bin/activate
 import os
 import requests
 
@@ -32,8 +32,9 @@ image_text_inference = ImageTextInferenceEngine(
     text_inference_engine=text_inference,
 )
 
-# device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-# image_text_inference.to(device)
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+image_text_inference.to(device)
+print(f"Using device: {device}")
 
 TypeBox = Tuple[float, float, float, float]
 
@@ -74,8 +75,8 @@ def plot_phrase_grounding_from_url(image_url: str, text_prompt: str, bboxes: Lis
     print(f"{image_path}")
     return plot_phrase_grounding(image_path, text_prompt, bboxes)
 
-image_url = "https://openi.nlm.nih.gov/imgs/512/242/1445/CXR1445_IM-0287-4004.png"
-text_prompt = "Left basilar consolidation seen"
+# image_url = "https://openi.nlm.nih.gov/imgs/512/242/1445/CXR1445_IM-0287-4004.png"
+# text_prompt = "Left basilar consolidation seen"
 
 image_url = "https://openi.nlm.nih.gov/imgs/512/246/3833405/PMC3833405_CRIM.ANESTHESIOLOGY2013-524348.001.png"
 text_prompt = "three right chest tubes"

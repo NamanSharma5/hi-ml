@@ -37,3 +37,14 @@ def test_image_inference_engine(height: int) -> None:
         image_embedding = image_inference.get_projected_global_embedding(image_path)
         assert image_embedding.shape == (joint_feature_size,)
         assert torch.allclose(torch.norm(image_embedding), torch.tensor([1.00]))
+
+
+@pytest.mark.parametrize("height", (400, 500, 650))
+def test_multi_image_inference_engine(height:int) -> None:
+    """Test the multi-image inference engine with a previous dummy image and a current dummy image and ensure that the output is of the correct shape."""
+    joint_feature_size = 128 # should this be 256? in the multi image case
+    resize = 512
+    center_crop_size = 480
+
+    width = 600
+    
